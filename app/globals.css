@@ -40,3 +40,26 @@ a {
     color-scheme: dark;
   }
 }
+
+/* Floating Project Home Link Styles */
+.project-home-link {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+  background: rgba(79, 70, 229, 0.9);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  backdrop-filter: blur(4px);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.project-home-link:hover {
+  transform: scale(1.05);
+  background: rgba(79, 70, 229, 1);
+}
