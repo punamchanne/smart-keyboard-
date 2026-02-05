@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 
 export default function Navbar() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
 
@@ -16,6 +17,7 @@ export default function Navbar() {
             setIsLoggedIn(!!hasUserSession || !!hasAdminSession);
         };
         checkAuth();
+        setIsMobileMenuOpen(false); // Close menu on route change
     }, [pathname]);
 
     const handleLogout = () => {
@@ -32,7 +34,18 @@ export default function Navbar() {
                 <Link href="/" className="nav-logo">
                     <span>⌨️</span> AI Smart Keyboard
                 </Link>
-                <div className="nav-links">
+
+                {/* Mobile Menu Button */}
+                <button
+                    className="mobile-menu-btn"
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    aria-label="Toggle menu"
+                >
+                    {isMobileMenuOpen ? '✕' : '☰'}
+                </button>
+
+                {/* Desktop Nav */}
+                <div className="nav-links desktop-only">
                     {isLoggedIn ? (
                         <button
                             onClick={handleLogout}
@@ -52,6 +65,29 @@ export default function Navbar() {
                     )}
                 </div>
             </div>
+
+            {/* Mobile Dropdown */}
+            {isMobileMenuOpen && (
+                <div className="mobile-menu">
+                    {isLoggedIn ? (
+                        <button
+                            onClick={handleLogout}
+                            className="nav-cta mobile-cta"
+                            style={{ background: '#ef4444', border: 'none', cursor: 'pointer', width: '100%' }}
+                        >
+                            Logout
+                        </button>
+                    ) : (
+                        <>
+                            <Link href="/" className="mobile-link">Home</Link>
+                            <Link href="/features" className="mobile-link">Features</Link>
+                            <Link href="/about" className="mobile-link">About</Link>
+                            <Link href="/auth/login" className="mobile-link">Login</Link>
+                            <Link href="/auth/register" className="nav-cta mobile-cta">Get Started</Link>
+                        </>
+                    )}
+                </div>
+            )}
         </nav>
     );
 }
