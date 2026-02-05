@@ -38,7 +38,7 @@ export default function AboutPage() {
                     </div>
                 </section>
 
-                <div className="card-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', padding: 0 }}>
+                <div className="card-grid" style={{ padding: 0 }}>
                     <div className="feature-card">
                         <h3>Frontend Stack</h3>
                         <ul style={{ paddingLeft: '1.25rem', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
