@@ -353,9 +353,17 @@
 }
 
 @media (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+        padding: 2rem 1rem;
+        gap: 1.5rem;
+    }
+
     .hero-title {
         font-size: 2.5rem;
     }
+
+    /* ... rest of existing media query ... */
 
     .desktop-only {
         display: none;
