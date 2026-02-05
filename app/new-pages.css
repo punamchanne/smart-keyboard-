@@ -376,4 +376,17 @@
     .nav-content {
         flex-wrap: wrap;
     }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .footer-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
