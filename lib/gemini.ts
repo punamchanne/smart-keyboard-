@@ -1,9 +1,19 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { KeyboardResponse } from "../types/keyboard";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-
 export async function getKeyboardSuggestions(text: string, retryCount = 0): Promise<KeyboardResponse> {
+  const apiKey = process.env.GEMINI_API_KEY;
+
+  if (!apiKey || apiKey.includes("REPLACE_ME")) {
+    return {
+      original_text: text,
+      corrected_text: text,
+      suggestions: [],
+      language: "Error: GEMINI_API_KEY not configured on Vercel"
+    };
+  }
+
+  const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({
     model: "gemini-flash-latest",
     generationConfig: { responseMimeType: "application/json" }

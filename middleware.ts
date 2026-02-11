@@ -29,11 +29,15 @@ export async function middleware(request: NextRequest) {
     const host = request.headers.get("host");
     const response = NextResponse.next();
 
-    // Allow if origin matches allowed list OR if it's a same-site request (origin is null or matches host)
-    const isAllowed = origin && (allowedOrigins.includes(origin) || (host && origin.includes(host)));
+    // Allow if:
+    // 1. Origin is in the allowed list
+    // 2. It's a same-origin request (origin matches host)
+    // 3. We're on Vercel and origin matches the Vercel domain pattern
+    const isSameOrigin = origin && host && (origin.includes(host) || origin.endsWith('.vercel.app'));
+    const isAllowed = !origin || allowedOrigins.includes(origin) || isSameOrigin;
 
-    if (isAllowed) {
-        response.headers.set("Access-Control-Allow-Origin", origin!);
+    if (isAllowed && origin) {
+        response.headers.set("Access-Control-Allow-Origin", origin);
         response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
         response.headers.set("Access-Control-Allow-Credentials", "true");
