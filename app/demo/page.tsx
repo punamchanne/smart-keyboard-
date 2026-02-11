@@ -406,7 +406,7 @@ export default function KeyboardDemoPage() {
                                 {row.map((key, keyIndex) => (
                                     <button
                                         key={keyIndex}
-                                        className={`key ${key.length > 1 && !/\p{Emoji}/u.test(key) ? 'key-special' : ''} ${(key === 'Shift' && isShift) || (key === 'CapsLock' && isCapsLock)
+                                        className={`key ${key.length > 1 && !/\p{Emoji}/u.test(key) ? 'key-special' : ''} ${(key === 'Shift' && (isShift || isCapsLock))
                                             ? 'key-active'
                                             : ''
                                             } ${key === '123' || key === 'ABC' || key === '😊' ? 'key-mode' : ''} ${/\p{Emoji}/u.test(key) && key.length <= 2 ? 'key-emoji' : ''}`}
